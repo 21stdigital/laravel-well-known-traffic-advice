@@ -16,6 +16,7 @@ class WellKnownTrafficAdviceServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-well-known-traffic-advice')
-            ->hasConfigFile();
+            ->hasConfigFile()
+            ->hasRoute('web');
     }
 }
