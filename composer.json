@@ -35,8 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "TFD\\WellKnownTrafficAdvice\\": "src/",
-            "TFD\\WellKnownTrafficAdvice\\Database\\Factories\\": "database/factories/"
+            "TFD\\WellKnownTrafficAdvice\\": "src/"
         }
     },
     "autoload-dev": {

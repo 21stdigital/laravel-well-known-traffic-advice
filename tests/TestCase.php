@@ -19,8 +19,5 @@ class TestCase extends Orchestra
         ];
     }
 
-    public function getEnvironmentSetUp($app)
-    {
-        // config()->set('database.default', 'testing');
-    }
+    public function getEnvironmentSetUp($app) {}
 }
