@@ -67,7 +67,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The time ranges during which the traffic will be disallowed.
-    | The time has to be given in UTC.
+    | The time has to be given in the app timezone.
     |
     | Format: 'HH:MM-HH:MM'
     |

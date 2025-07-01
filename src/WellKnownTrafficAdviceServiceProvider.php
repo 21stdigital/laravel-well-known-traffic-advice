@@ -4,6 +4,8 @@ namespace TFD\WellKnownTrafficAdvice;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use TFD\WellKnownTrafficAdvice\Contracts\LoadAverageServiceInterface;
+use TFD\WellKnownTrafficAdvice\Services\LoadAverageService;
 
 class WellKnownTrafficAdviceServiceProvider extends PackageServiceProvider
 {
@@ -18,5 +20,10 @@ class WellKnownTrafficAdviceServiceProvider extends PackageServiceProvider
             ->name('laravel-well-known-traffic-advice')
             ->hasConfigFile()
             ->hasRoute('web');
+    }
+
+    public function packageBooted(): void
+    {
+        $this->app->bind(LoadAverageServiceInterface::class, LoadAverageService::class);
     }
 }

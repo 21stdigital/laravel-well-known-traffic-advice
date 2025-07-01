@@ -3,12 +3,23 @@
 namespace TFD\WellKnownTrafficAdvice\Checks;
 
 use TFD\WellKnownTrafficAdvice\Contracts\TrafficAdviceCheck;
+use TFD\WellKnownTrafficAdvice\Contracts\LoadAverageServiceInterface;
 
 class HighCpuUsageCheck implements TrafficAdviceCheck
 {
+    protected LoadAverageServiceInterface $loadAverageService;
+
+    /**
+     * @param LoadAverageServiceInterface $loadAverageService Service to retrieve system load average (mockable for tests)
+     */
+    public function __construct(LoadAverageServiceInterface $loadAverageService)
+    {
+        $this->loadAverageService = $loadAverageService;
+    }
+
     public function shouldDisallow(): bool
     {
-        $load = sys_getloadavg();
+        $load = $this->loadAverageService->getLoadAverage();
         $weightedLoad = $load[0] * 0.6 + $load[1] * 0.3 + $load[2] * 0.1;
         $cpuCores = $this->getCpuCores();
         $cpuUsage = 100 * $weightedLoad / $cpuCores;
@@ -32,13 +43,13 @@ class HighCpuUsageCheck implements TrafficAdviceCheck
             $cpuCores = (int) shell_exec('nproc 2>/dev/null');
 
             if ($cpuCores < 1) {
-                // Fallback für MacOS oder falls nproc nicht verfügbar
+                // Fallback for MacOS or if nproc is not available
                 $cpuCores = (int) shell_exec('sysctl -n hw.ncpu 2>/dev/null');
             }
         }
 
         if ($cpuCores < 1) {
-            $cpuCores = config('well-known-traffic-advice.cores', 1); // Konservativer Fallback
+            $cpuCores = config('well-known-traffic-advice.cores', 1); // Conservative fallback
         }
 
         return $cpuCores;

@@ -15,6 +15,7 @@ class DisallowedTimeCheck implements TrafficAdviceCheck
         foreach ($disallowedTimeRanges as $disallowedTimeRange) {
             $parts = explode('-', $disallowedTimeRange);
 
+            // Must exactly contain two parts
             if (count($parts) !== 2) {
                 Log::warning('Invalid disallowed time range: '.$disallowedTimeRange);
 
@@ -23,11 +24,26 @@ class DisallowedTimeCheck implements TrafficAdviceCheck
 
             [$startTime, $endTime] = $parts;
 
+            // Every part must be a valid time string
+            if (!preg_match('/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/', $startTime) ||
+                !preg_match('/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/', $endTime)) {
+                Log::warning('Invalid time format in disallowed time range: '.$disallowedTimeRange);
+
+                continue;
+            }
+
             $startDateTime = now()->setTimeFromTimeString($startTime);
             $endDateTime = now()->setTimeFromTimeString($endTime);
 
-            if ($currentTime >= $startDateTime && $currentTime <= $endDateTime) {
-                return true;
+            if ($endDateTime < $startDateTime) {
+                // Time range crosses midnight
+                if ($currentTime >= $startDateTime || $currentTime <= $endDateTime) {
+                    return true;
+                }
+            } else {
+                if ($currentTime >= $startDateTime && $currentTime <= $endDateTime) {
+                    return true;
+                }
             }
         }
 
