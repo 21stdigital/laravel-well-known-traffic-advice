@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Config;
 
 describe('Traffic Advice Endpoint Integration', function () {
     it('responds to the well-known endpoint', function () {
+        Config::set('well-known-traffic-advice.checks', []);
+
         $response = $this->get('/.well-known/traffic-advice');
 
         expect($response->status())->toBe(200);
