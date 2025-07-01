@@ -2,15 +2,15 @@
 
 namespace TFD\WellKnownTrafficAdvice\Checks;
 
-use TFD\WellKnownTrafficAdvice\Contracts\TrafficAdviceCheck;
 use TFD\WellKnownTrafficAdvice\Contracts\LoadAverageServiceInterface;
+use TFD\WellKnownTrafficAdvice\Contracts\TrafficAdviceCheck;
 
 class HighCpuUsageCheck implements TrafficAdviceCheck
 {
     protected LoadAverageServiceInterface $loadAverageService;
 
     /**
-     * @param LoadAverageServiceInterface $loadAverageService Service to retrieve system load average (mockable for tests)
+     * @param  LoadAverageServiceInterface  $loadAverageService  Service to retrieve system load average (mockable for tests)
      */
     public function __construct(LoadAverageServiceInterface $loadAverageService)
     {

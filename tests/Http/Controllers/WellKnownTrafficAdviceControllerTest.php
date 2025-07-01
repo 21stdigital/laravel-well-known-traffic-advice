@@ -6,7 +6,7 @@ use TFD\WellKnownTrafficAdvice\Http\Controllers\WellKnownTrafficAdviceController
 
 describe('WellKnownTrafficAdviceController', function () {
     beforeEach(function () {
-        $this->controller = new WellKnownTrafficAdviceController();
+        $this->controller = new WellKnownTrafficAdviceController;
     });
 
     it('returns 200 with fraction when no checks disallow', function () {
@@ -25,7 +25,7 @@ describe('WellKnownTrafficAdviceController', function () {
             [
                 'user_agent' => $testUserAgent,
                 'fraction' => $testFraction,
-            ]
+            ],
         ]);
         expect($response->headers->get('Content-Type'))->toBe('application/traffic-advice+json');
     });
@@ -42,7 +42,7 @@ describe('WellKnownTrafficAdviceController', function () {
             [
                 'user_agent' => 'test-agent',
                 'disallow' => true,
-            ]
+            ],
         ]);
     });
 
@@ -61,7 +61,7 @@ describe('WellKnownTrafficAdviceController', function () {
             [
                 'user_agent' => 'agent2',
                 'fraction' => 0.3,
-            ]
+            ],
         ]);
     });
 

@@ -21,7 +21,7 @@ describe('Traffic Advice Endpoint Integration', function () {
             [
                 'user_agent' => 'prefetch-proxy',
                 'fraction' => 0.5,
-            ]
+            ],
         ]);
     });
 
@@ -43,7 +43,7 @@ describe('Traffic Advice Endpoint Integration', function () {
         Config::set('well-known-traffic-advice.user_agents', ['prefetch-proxy']);
         Config::set('well-known-traffic-advice.disallowed_time_ranges', ['14:00-15:00']);
         Config::set('well-known-traffic-advice.checks', [
-            \TFD\WellKnownTrafficAdvice\Checks\DisallowedTimeCheck::class
+            \TFD\WellKnownTrafficAdvice\Checks\DisallowedTimeCheck::class,
         ]);
 
         $response = $this->get('/.well-known/traffic-advice');

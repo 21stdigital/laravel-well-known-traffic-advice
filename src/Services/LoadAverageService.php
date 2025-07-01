@@ -7,7 +7,7 @@ use TFD\WellKnownTrafficAdvice\Contracts\LoadAverageServiceInterface;
 class LoadAverageService implements LoadAverageServiceInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getLoadAverage(): array
     {

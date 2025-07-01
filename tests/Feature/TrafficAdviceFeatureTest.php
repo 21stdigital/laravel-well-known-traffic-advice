@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Config;
 use TFD\WellKnownTrafficAdvice\Checks\HighCpuUsageCheck;
-use TFD\WellKnownTrafficAdvice\Contracts\LoadAverageServiceInterface;
 
 describe('Traffic Advice Feature', function () {
     it('handles normal operation without checks', function () {
@@ -24,7 +23,7 @@ describe('Traffic Advice Feature', function () {
         Config::set('well-known-traffic-advice.user_agents', ['prefetch-proxy']);
         Config::set('well-known-traffic-advice.disallowed_time_ranges', ['23:00-00:00']);
         Config::set('well-known-traffic-advice.checks', [
-            \TFD\WellKnownTrafficAdvice\Checks\DisallowedTimeCheck::class
+            \TFD\WellKnownTrafficAdvice\Checks\DisallowedTimeCheck::class,
         ]);
 
         $response = $this->get('/.well-known/traffic-advice');
@@ -37,7 +36,7 @@ describe('Traffic Advice Feature', function () {
         Config::set('well-known-traffic-advice.user_agents', ['prefetch-proxy']);
         Config::set('well-known-traffic-advice.cpu_usage_threshold', 50);
         Config::set('well-known-traffic-advice.checks', [
-            \TFD\WellKnownTrafficAdvice\Checks\HighCpuUsageCheck::class
+            \TFD\WellKnownTrafficAdvice\Checks\HighCpuUsageCheck::class,
         ]);
 
         $check = $this->createHighCpuUsageCheckMock(

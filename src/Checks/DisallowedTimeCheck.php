@@ -25,8 +25,8 @@ class DisallowedTimeCheck implements TrafficAdviceCheck
             [$startTime, $endTime] = $parts;
 
             // Every part must be a valid time string
-            if (!preg_match('/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/', $startTime) ||
-                !preg_match('/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/', $endTime)) {
+            if (! preg_match('/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/', $startTime) ||
+                ! preg_match('/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/', $endTime)) {
                 Log::warning('Invalid time format in disallowed time range: '.$disallowedTimeRange);
 
                 continue;

@@ -3,8 +3,8 @@
 namespace TFD\WellKnownTrafficAdvice\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use TFD\WellKnownTrafficAdvice\WellKnownTrafficAdviceServiceProvider;
 use TFD\WellKnownTrafficAdvice\Tests\Helpers\HighCpuUsageCheckTestHelper;
+use TFD\WellKnownTrafficAdvice\WellKnownTrafficAdviceServiceProvider;
 
 class TestCase extends Orchestra
 {

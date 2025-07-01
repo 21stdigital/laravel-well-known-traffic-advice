@@ -20,24 +20,24 @@ describe('TrafficAdviceItem', function () {
     });
 
     it('throws exception for empty user agent', function () {
-        expect(fn() => new TrafficAdviceItem(''))->toThrow(InvalidArgumentException::class);
-        expect(fn() => new TrafficAdviceItem('   '))->toThrow(InvalidArgumentException::class);
+        expect(fn () => new TrafficAdviceItem(''))->toThrow(InvalidArgumentException::class);
+        expect(fn () => new TrafficAdviceItem('   '))->toThrow(InvalidArgumentException::class);
     });
 
     it('throws exception when both fraction and disallow are set', function () {
-        expect(fn() => new TrafficAdviceItem('test-agent', fraction: 0.5, disallow: true))
+        expect(fn () => new TrafficAdviceItem('test-agent', fraction: 0.5, disallow: true))
             ->toThrow(InvalidArgumentException::class);
     });
 
     it('throws exception when neither fraction nor disallow are set', function () {
-        expect(fn() => new TrafficAdviceItem('test-agent'))
+        expect(fn () => new TrafficAdviceItem('test-agent'))
             ->toThrow(InvalidArgumentException::class);
     });
 
     it('throws exception for invalid fraction values', function () {
-        expect(fn() => new TrafficAdviceItem('test-agent', fraction: -0.1))
+        expect(fn () => new TrafficAdviceItem('test-agent', fraction: -0.1))
             ->toThrow(InvalidArgumentException::class);
-        expect(fn() => new TrafficAdviceItem('test-agent', fraction: 1.1))
+        expect(fn () => new TrafficAdviceItem('test-agent', fraction: 1.1))
             ->toThrow(InvalidArgumentException::class);
     });
 

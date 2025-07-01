@@ -6,7 +6,7 @@ use TFD\WellKnownTrafficAdvice\Checks\DisallowedTimeCheck;
 
 describe('DisallowedTimeCheck', function () {
     beforeEach(function () {
-        $this->check = new DisallowedTimeCheck();
+        $this->check = new DisallowedTimeCheck;
     });
 
     it('returns false when no disallowed time ranges are configured', function () {
