@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace TFD\WellKnownTrafficAdvice\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class WellKnownTrafficAdviceCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-well-known-traffic-advice';
 
     public $description = 'My command';
 
