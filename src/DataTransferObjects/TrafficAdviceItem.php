@@ -21,10 +21,6 @@ class TrafficAdviceItem
         if ($fraction !== null && ($fraction < 0.0 || $fraction > 1.0)) {
             throw new \InvalidArgumentException('Fraction must be between 0.0 and 1.0');
         }
-
-        if ($disallow !== null && ! is_bool($disallow)) {
-            throw new \InvalidArgumentException('Disallow must be a boolean');
-        }
     }
 
     public function toArray(): array
