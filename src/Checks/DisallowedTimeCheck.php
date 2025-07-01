@@ -16,7 +16,8 @@ class DisallowedTimeCheck implements TrafficAdviceCheck
             $parts = explode('-', $disallowedTimeRange);
 
             if (count($parts) !== 2) {
-                Log::warning('Invalid disallowed time range: ' . $disallowedTimeRange);
+                Log::warning('Invalid disallowed time range: '.$disallowedTimeRange);
+
                 continue;
             }
 
