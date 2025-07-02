@@ -8,8 +8,27 @@ on:
       - ".github/workflows/phpstan.yml"
 
 jobs:
+  detect_changes:
+    name: Detect Changes in PHP Files
+    runs-on: ubuntu-latest
+
+    outputs:
+      php_files_changed: ${{ steps.filter.outputs.php_files }}
+      phpstan_config_changed: ${{ steps.filter.outputs.phpstan_config }}
+
+    steps:
+      - name: Identify Changed PHP Files
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            php_files:
+              - added|modified: '**/*.php'
+            phpstan_config:
+              - added|modified: 'phpstan.neon'
+
   phpstan:
-    name: phpstan
+    name: Run PHPStan Analysis
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
