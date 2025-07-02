@@ -1,10 +1,6 @@
 name: Fix PHP code style issues
 
 on:
-  push:
-    paths:
-      - "**.php"
-      - ".github/workflows/fix-php-code-style-issues.yml"
   pull_request:
     paths:
       - "**.php"
@@ -14,7 +10,26 @@ permissions:
   contents: write
 
 jobs:
+  detect_php_changes:
+    name: Detect Changes in PHP Files
+    runs-on: ubuntu-latest
+
+    outputs:
+      php_files_changed: ${{ steps.filter.outputs.php_files }}
+
+    steps:
+      - name: Identify Changed PHP Files
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            php_files:
+              - added|modified: '**/*.php'
+
   php-code-styling:
+    name: Fix PHP Code Styling
+    needs: detect_php_changes
+    if: ${{ needs.detect_php_changes.outputs.php_files_changed == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
