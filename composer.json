@@ -1,10 +1,16 @@
 {
     "name": "tfd/laravel-well-known-traffic-advice",
-    "description": "This is my package laravel-well-known-traffic-advice",
+    "description": "A Laravel package that provides a standardized .well-known/traffic-advice endpoint for communicating server load, maintenance windows, and access recommendations to automated clients, crawlers, and partner services.",
     "keywords": [
         "21st digital GmbH",
         "laravel",
-        "laravel-well-known-traffic-advice"
+        "laravel-well-known-traffic-advice",
+        "traffic advice",
+        ".well-known",
+        "server load",
+        "prefetch",
+        "automated clients",
+        "crawlers"
     ],
     "homepage": "https://github.com/21stdigital/laravel-well-known-traffic-advice",
     "license": "MIT",
