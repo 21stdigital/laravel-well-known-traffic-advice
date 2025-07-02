@@ -193,7 +193,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+This project is maintained by 21st digital. We appreciate the contributions from the community that help make this project better.
 
 ## Security Vulnerabilities
 
