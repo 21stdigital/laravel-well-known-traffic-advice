@@ -15,7 +15,7 @@ Key features include:
 
 ## Background: What is traffic advice?
 
-The upcoming Traffic Advice is a standardized way for servers to communicate their current load and access recommendations to automated clients via the `/.well-known/traffic-advice endpoint`. This helps systems like Chrome’s Private Prefetch Proxy decide when and how much to prefetch from your site.
+The upcoming Traffic Advice is a standardized way for servers to communicate their current load and access recommendations to automated clients via the `/.well-known/traffic-advice endpoint`. This helps systems like Chrome's Private Prefetch Proxy decide when and how much to prefetch from your site.
 
 By providing information such as server load, allowed prefetch fractions, or disallowing access during maintenance, Traffic Advice helps optimize resource usage and improve reliability. It enables sites to control automated traffic dynamically, reducing unnecessary load during peak times while enhancing user experience when capacity allows.
 
@@ -34,6 +34,152 @@ You can publish the config file with:
 ```bash
 php artisan vendor:publish --tag="laravel-well-known-traffic-advice-config"
 ```
+
+This is the contents of the published config file:
+
+```
+<?php
+
+return [
+    /*
+    |--------------------------------------------------------------------------
+    | User Agents
+    |--------------------------------------------------------------------------
+    |
+    | List of user agents that will be recognized by the controller.
+    |
+    */
+    'user_agents' => [
+        'prefetch-proxy',
+        '*',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Fraction
+    |--------------------------------------------------------------------------
+    |
+    | The fraction of the total traffic that will be allowed to pass through.
+    |
+    | 0.0 - 1.0
+    | 0.0 = 0%
+    | 0.5 = 50%
+    | 1.0 = 100%
+    |
+    */
+    'fraction' => 0.35,
+
+    /*
+    |--------------------------------------------------------------------------
+    | CPU Cores
+    |--------------------------------------------------------------------------
+    |
+    | The number of CPU cores of the server.
+    | The service tries to get the number of cores from the system.
+    | If it fails, the configuration value will be used.
+    |
+    */
+    'cores' => 10,
+
+    /*
+    |--------------------------------------------------------------------------
+    | CPU Usage Threshold
+    |--------------------------------------------------------------------------
+    |
+    | The threshold of the CPU usage above which the traffic will be disallowed.
+    |
+    */
+    'cpu_usage_threshold' => 80,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Retry After
+    |--------------------------------------------------------------------------
+    |
+    | The number of seconds after which the user agent is advised to retry.
+    |
+    */
+    'retry_after' => 60,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Disallowed Time Ranges
+    |--------------------------------------------------------------------------
+    |
+    | The time ranges during which the traffic will be disallowed.
+    | The time has to be given in the app timezone.
+    |
+    | Format: 'HH:MM-HH:MM'
+    |
+    */
+    'disallowed_time_ranges' => [
+        // '00:00-00:30',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Checks
+    |--------------------------------------------------------------------------
+    |
+    | The checks that will be performed to determine if the traffic should be disallowed.
+    |
+    | Register your own checks by adding them to the array.
+    | They must implement the TrafficAdviceCheck interface.
+    |
+    */
+    'checks' => [
+        TFD\WellKnownTrafficAdvice\Checks\HighCpuUsageCheck::class,
+        TFD\WellKnownTrafficAdvice\Checks\DisallowedTimeCheck::class,
+    ],
+];
+```
+
+## Creating Custom Checks
+
+You can implement your own checks to define custom criteria for traffic advice. A custom check must implement the `TrafficAdviceCheck` interface.
+
+### Example: Custom Check
+
+Create a new class, e.g., in `app/Checks/CustomCheck.php`:
+
+```php
+namespace App\Checks;
+
+use Tfd\LaravelWellKnownTrafficAdvice\Contracts\TrafficAdviceCheck;
+use Tfd\LaravelWellKnownTrafficAdvice\DataTransferObjects\TrafficAdviceItem;
+
+class MyCustomCheck implements TrafficAdviceCheck
+{
+    public function shouldDisallow(): bool
+    {
+        // include your custom logic to decide, if the endpoint allows requests to your site
+        $customDisallow = ...
+
+        return $customDisallow;
+    }
+
+    public function getName(): string
+    {
+        return 'My Custom Check';
+    }
+}
+```
+
+### Registering the Check
+
+Add your check to the `checks` array in the `config/well-known-traffic-advice.php` configuration file:
+
+```php
+'checks' => [
+    // ...
+    App\Checks\MyCustomCheck::class,
+],
+```
+
+Your check will now be considered on every request to `/.well-known/traffic-advice`.
+
+You can find more examples in the `src/Checks` directory.
+
 
 ## Testing
 
