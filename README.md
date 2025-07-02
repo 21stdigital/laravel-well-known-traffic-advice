@@ -1,4 +1,4 @@
-# This is my package laravel-well-known-traffic-advice
+# Laravel Traffic Advice — Standardized Server Load & Access Recommendations via `.well-known/traffic-advice`
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/21stdigital/laravel-well-known-traffic-advice.svg?style=flat-square)](https://packagist.org/packages/21stdigital/laravel-well-known-traffic-advice)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/21stdigital/laravel-well-known-traffic-advice/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/21stdigital/laravel-well-known-traffic-advice/actions?query=workflow%3Arun-tests+branch%3Amain)
